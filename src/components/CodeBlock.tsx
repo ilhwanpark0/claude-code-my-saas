@@ -3,16 +3,16 @@
 import { useState } from "react";
 
 type Props = {
-  code: string;
-  label?: string;
+  children: string;
+  lang?: string;
 };
 
-export function CodeBlock({ code, label }: Props) {
+export function CodeBlock({ children, lang }: Props) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(children);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
@@ -22,14 +22,14 @@ export function CodeBlock({ code, label }: Props) {
 
   return (
     <div className="group relative my-3">
-      {label && (
+      {lang && (
         <div className="text-xs text-muted mb-1 font-mono uppercase tracking-wider">
-          {label}
+          {lang}
         </div>
       )}
       <div className="relative rounded-lg border border-border bg-[#1a1a1a] text-[#f5f5f5]">
         <pre className="overflow-x-auto px-4 py-3 text-sm font-mono leading-relaxed">
-          <code>{code}</code>
+          <code>{children}</code>
         </pre>
         <button
           type="button"
